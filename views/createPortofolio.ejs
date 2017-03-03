@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Single page web app using Angularjs</title>
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.3/angular.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.3/angular-route.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
+<script src="script.js"></script>
+
+<style>
+.alert {
+    padding: 20px;
+    background-color: #f44336;
+    color: white;
+    opacity: 1;
+    transition: opacity 0.6s;
+    margin-bottom: 15px;
+}
+
+.alert.success {background-color: #4CAF50;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+
+.closebtn {
+    margin-left: 15px;
+    color: white;
+    font-weight: bold;
+    float: right;
+    font-size: 22px;
+    line-height: 20px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.closebtn:hover {
+    color: black;
+}
+</style>
+
+
+</head>
+<body>
+
+<div>
+<div>
+<nav class="navbar navbar-inverse" role="navigation" style="padding-left:130px;">
+       <ul class="nav navbar-nav">
+      <li class="active"><a href="/">Home<span class="sr-only">(current)</span></a></li>
+      <li><a href="/viewWorks">View Works</a></li>
+      <li><a href="/addWork">Add Works</a></li>
+      <li><a href="/user">View Profile</a></li>
+      <li><a href="/signOut">Sign Out</a></li>
+    </ul>
+</nav>
+</div>
+
+<% if(err == false || err === false){ %>
+
+ <div class="alert success">
+   <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>Success!</strong> You added a work successfully, click <a href="/addWork">here</a> to add more work :)
+  </div>
+
+<% } else { %>
+
+
+<% if(name == false){ %>
+  <div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>Error!</strong> Name is required. </div> 
+
+  <%}%>
+
+<% if(err){ %>
+  <div class="alert">
+  <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+  <strong>Error!</strong> A work must be a link and/or a screenshot. </div> 
+
+  <%}%>
+
+
+  <div class="container">
+  <h2>Create Protofolio</h2>
+  <div class="panel panel-default">
+
+<form class="form-horizontal" method = "POST" enctype="multipart/form-data" action="/createPortofolio">
+
+
+
+
+    <div class="form-group">
+        <br>
+        <br>
+        <label for="name" class="col-sm-2 control-label"> Name
+        </label>
+        <div class="col-sm-8">
+          <input type="text" class="form-control" id="name" placeholder="Name" name = "name">
+            <br>
+        </div>
+    </div>
+
+
+      <div class="form-group">
+        <label for="file" class="col-sm-2 control-label" >Profile Picture</label>
+        <div class="col-sm-offset-2 col-sm-10">
+  
+
+      <input type="file" name="pp" id="file" />
+        <span class="hint">Supported files: jpg, jpeg, png.</span> 
+        <br>
+        <br>
+          </div>
+      </div>
+
+       <div class="form-group">
+        <label for="file" class="col-sm-2 control-label" >Add work</label>
+        <div class="col-sm-offset-2 col-sm-10">
+  
+        <label for="sshot"  >Screenshot</label>
+      <input type="file" name="ss" id="file" />
+      <br>
+       <label for="link" >Link</label>
+        <input type="url" class="form-control" name = "link" id="link" placeholder="Link">
+        <br>
+       <label for="link" >Project Description </label>
+
+        <input type="text" class="form-control" name = "description" id="des" placeholder="Description">
+
+         <br>
+        <span class="hint">You must upload at least one work to create a portofolio ..</span> 
+       <br>
+        <label for="sshot"  >A work can be a link and/or a screenshot.</label>
+        <br>
+
+
+          </div>
+      </div>
+<br>  
+
+	   <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <button type="submit" class="btn btn-default btn-lg" onClick = "signin" class = "signin">Create
+            </button>
+            <br>
+            <br>
+          </div>
+      </div>
+
+</form>
+
+<% } %>
+</div>
+</div>
+
+
+<% include partials/footer.ejs %>
